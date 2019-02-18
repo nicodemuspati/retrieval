@@ -26,9 +26,7 @@ public class Document {
         this.content = content;
     }
 
-    public Document(int i, String computer_information_retrieval) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+  
     
     /**
      * @return the content
@@ -62,7 +60,7 @@ public class Document {
         return null;
     }
     
-    }}
+    }
 
     
 
