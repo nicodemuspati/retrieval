@@ -10,12 +10,13 @@ import java.util.List;
 import model.Document;
 import model.InvertedIndex;
 import model.Posting;
+import model.Term;
 
 /**
  *
  * @author admin
  */
-public class testDocument5 {
+public class testDocument7 {
 
     public static void main(String[] args) {
         // seting dokumen
@@ -29,12 +30,22 @@ public class testDocument5 {
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
-        // panggil function sorted Posting List
-        ArrayList<Posting> list = index.getSortedPostingList();
-        // panggil list posting
-        System.out.println("Ukuran list = " + list.size());
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getTerm() + "," + list.get(i).getDocument().getId());
+        // panggil fungsi search
+        index.makeDictionary();
+        ArrayList<Posting> result = index.searchOneWord("computer");
+        // tampilkan isi document dan id-nya
+        for (int i = 0; i < result.size(); i++) {
+            System.out.println("id_doc = " +result.get(i).getDocument().getId());
+            System.out.println(result.get(i).getDocument().getContent());
         }
+//        
+////        // panggil fungsi search
+//        ArrayList<Posting> result1 = index.search("machine learning");
+////        // tampilkan isi document dan id-nya
+//        for (int i = 0; i < result1.size(); i++) {
+//            System.out.println("id_doc = " +result1.get(i).getDocument().getId());
+//            System.out.println(result1.get(i).getDocument().getContent());
+//        }
+//        
     }
 }
