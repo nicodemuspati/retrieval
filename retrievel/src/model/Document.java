@@ -1,20 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
-
-import java.util.StringTokenizer;
 
 /**
  *
- * @author puspaningtyas
+ * @author admin
  */
 public class Document {
     private int id;
@@ -30,8 +18,8 @@ public class Document {
     public Document(int id, String content) {
         this.id = id;
         this.content = content;
-    }
-    
+    } 
+
     /**
      * @return the content
      */
@@ -61,9 +49,11 @@ public class Document {
     }
     
     public String[] getListofTerm(){
-        String value = this.getContent();
-        value = value.replaceAll("[.,?!]", "");
-        return value.split(" ");
+        String[] term = content.split("\\s+");
+        for (int i = 0; i < term.length; i++) {
+            term[i] = term[i].replaceAll("[^\\w]", "");
+        }
+        return term;
     }
     
 }

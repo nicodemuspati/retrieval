@@ -1,28 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 /**
  *
  * @author admin
  */
-public class Posting implements Comparable<Posting>{
-    private String term;
+public class Posting implements Comparable<Posting> {
+
     private Document document;
-    
-    
+    private String term;
+
+    public Posting() {
+    }
+
+    public Posting(Document document, String term) {
+        this.document = document;
+        this.term = term;
+    }
+
     public Posting(Document document) {
         this.document = document;
     }
-
-    public Posting(String term, Document document) {
-        this.term = term;
-        this.document = document;
-    }
-    
 
     /**
      * @return the document
@@ -56,5 +53,4 @@ public class Posting implements Comparable<Posting>{
     public int compareTo(Posting posting) {
         return term.compareToIgnoreCase(posting.getTerm());
     }
-    
 }
