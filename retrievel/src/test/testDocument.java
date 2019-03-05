@@ -9,7 +9,7 @@ import model.Document;
 
 /**
  *
- * @author ASUS
+ * @author admin
  */
 public class testDocument {
     public static void main(String[] args) {
@@ -26,5 +26,3 @@ public class testDocument {
         }
     }
 }
-    
-

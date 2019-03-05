@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model;
 
 /**
@@ -6,18 +11,21 @@ package model;
  */
 public class Posting implements Comparable<Posting> {
 
-    private Document document;
     private String term;
+    private Document document;
+    private int numberOfTerm = 1;
+    private double weight=0.0; // nilai TF-IDF
 
     public Posting() {
     }
 
-    public Posting(Document document, String term) {
+    
+    public Posting(Document document) {
         this.document = document;
-        this.term = term;
     }
 
-    public Posting(Document document) {
+    public Posting(String term, Document document) {
+        this.term = term;
         this.document = document;
     }
 
@@ -51,6 +59,47 @@ public class Posting implements Comparable<Posting> {
 
     @Override
     public int compareTo(Posting posting) {
-        return term.compareToIgnoreCase(posting.getTerm());
+        int result = 0;
+        result = term.compareToIgnoreCase(posting.getTerm());
+        if (result == 0) {
+            if(posting.getDocument()!=null){
+                result = getDocument().getId() - 
+                        posting.getDocument().getId();
+                return result;
+            } else{
+                return result;
+            }
+        } else {
+            return result;
+        }
     }
+
+    /**
+     * @return the numberOfTerm
+     */
+    public int getNumberOfTerm() {
+        return numberOfTerm;
+    }
+
+    /**
+     * @param numberOfTerm the numberOfTerm to set
+     */
+    public void setNumberOfTerm(int numberOfTerm) {
+        this.numberOfTerm = numberOfTerm;
+    }
+
+    /**
+     * @return the weight
+     */
+    public double getWeight() {
+        return weight;
+    }
+
+    /**
+     * @param weight the weight to set
+     */
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
 }
