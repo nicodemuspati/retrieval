@@ -5,21 +5,25 @@
  */
 package model;
 
-/**
- *
- * @author admin
- */
 public class Posting implements Comparable<Posting> {
 
     private String term;
     private Document document;
-    private int numberOfTerm = 1;
-    private double weight=0.0; // nilai TF-IDF
+    private int NumberOfTerm;
+    private double weight;
 
     public Posting() {
+
     }
 
-    
+    public int getNumberOfTerm() {
+        return NumberOfTerm;
+    }
+
+    public void setNumberOfTerm(int NumberOfTerm) {
+        this.NumberOfTerm = NumberOfTerm;
+    }
+
     public Posting(Document document) {
         this.document = document;
     }
@@ -27,34 +31,32 @@ public class Posting implements Comparable<Posting> {
     public Posting(String term, Document document) {
         this.term = term;
         this.document = document;
+        NumberOfTerm = 1;
+        setWeight(0);
     }
 
-    /**
-     * @return the document
-     */
     public Document getDocument() {
         return document;
     }
 
-    /**
-     * @param document the document to set
-     */
     public void setDocument(Document document) {
         this.document = document;
     }
 
-    /**
-     * @return the term
-     */
     public String getTerm() {
         return term;
     }
 
-    /**
-     * @param term the term to set
-     */
     public void setTerm(String term) {
         this.term = term;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -62,44 +64,16 @@ public class Posting implements Comparable<Posting> {
         int result = 0;
         result = term.compareToIgnoreCase(posting.getTerm());
         if (result == 0) {
-            if(posting.getDocument()!=null){
-                result = getDocument().getId() - 
-                        posting.getDocument().getId();
+            if (posting.getDocument() != null) {
+                result = getDocument().getId()
+                        - posting.getDocument().getId();
                 return result;
-            } else{
+            } else {
                 return result;
             }
         } else {
             return result;
         }
-    }
 
-    /**
-     * @return the numberOfTerm
-     */
-    public int getNumberOfTerm() {
-        return numberOfTerm;
     }
-
-    /**
-     * @param numberOfTerm the numberOfTerm to set
-     */
-    public void setNumberOfTerm(int numberOfTerm) {
-        this.numberOfTerm = numberOfTerm;
-    }
-
-    /**
-     * @return the weight
-     */
-    public double getWeight() {
-        return weight;
-    }
-
-    /**
-     * @param weight the weight to set
-     */
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
 }

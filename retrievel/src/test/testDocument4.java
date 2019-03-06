@@ -17,12 +17,12 @@ import model.Posting;
  */
 public class testDocument4 {
 
-    public static void main(String[] args) {
+  public static void main(String[] args) {
         // seting dokumen
         Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
         Document doc3 = new Document(3, "machine learning architecture");
-        
+
         // buat object invertedIndex
         InvertedIndex index = new InvertedIndex();
         // tmbahkan document ke index

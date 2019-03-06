@@ -1,20 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.StringTokenizer;
 
 /**
  *
- * @author puspaningtyas
+ * @author admin
  */
-public class Document implements Comparable<Document>{
+public class Document implements Comparable<Document> {
 
     private int id;
     private String content;
@@ -31,30 +25,18 @@ public class Document implements Comparable<Document>{
         this.content = content;
     }
 
-    /**
-     * @return the content
-     */
     public String getContent() {
         return content;
     }
 
-    /**
-     * @param content the content to set
-     */
     public void setContent(String content) {
         this.content = content;
     }
 
-    /**
-     * @return the id
-     */
     public int getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(int id) {
         this.id = id;
     }
@@ -65,7 +47,7 @@ public class Document implements Comparable<Document>{
         return value.split(" ");
     }
 
-    public ArrayList<Posting> getListofPosting() {
+    public ArrayList<Posting> getListOfPosting() {
         // panggil fungsi getListOfTerm
         String tempString[] = getListofTerm();
         // buat objek ArrayList<Posting> result untuk menampung hasil
@@ -76,7 +58,7 @@ public class Document implements Comparable<Document>{
             // jika term pertama maka
             if (i == 0) {
                 // buat object tempPosting
-                Posting temPosting = new Posting(tempString[0],this);
+                Posting temPosting = new Posting(tempString[0], this);
                 // set atribut document, gunakan this
                 // tambahkan ke ArrayList result
                 result.add(temPosting);
@@ -87,20 +69,20 @@ public class Document implements Comparable<Document>{
                 // cek apakah term sudah ada
                 // gunakan fungsi search dengan luaran indeks obyek yang memenuhi
                 // buat object tempPosting           
-                Posting temPosting = new Posting(tempString[i],this);
-                int indexCari = Collections.binarySearch(result,temPosting);
+                Posting temPosting = new Posting(tempString[i], this);
+                int indexCari = Collections.binarySearch(result, temPosting);
                 // jika hasil cari kurang dari 0  (obyek tidak ada)
-                if (indexCari <0){
+                if (indexCari < 0) {
                     // set atribut document, gunakan this
                     // tambahkan ke ArrayList result
                     result.add(temPosting);
-                } else{
-                // lainnya   (obyek ada)
+                } else {
+                    // lainnya   (obyek ada)
                     // ambil postingnya, 
                     // tambahkan atribut numberOfTerm dengan 1
                     // dgn fungsi get
                     // int tempNumber = get(indekshasilCari).getNumberOfTerm()+1;
-                    int tempNumber = result.get(indexCari).getNumberOfTerm()+1;
+                    int tempNumber = result.get(indexCari).getNumberOfTerm() + 1;
                     // atau get(indekshasilcari.setNumberOfTerm(tempNumber)
                     result.get(indexCari).setNumberOfTerm(tempNumber);
                 }
@@ -111,7 +93,7 @@ public class Document implements Comparable<Document>{
 
     @Override
     public int compareTo(Document doc) {
-        return id-doc.getId();
+        return id - doc.getId();
     }
 
 }

@@ -10,7 +10,7 @@ package test;
  * @author user only
  */
 public class testRegex {
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         String test = "ini sebuah, kalimat..?";
         test = test.replaceAll("[,?.]", "");
         System.out.println(test);

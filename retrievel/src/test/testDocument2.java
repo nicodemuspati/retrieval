@@ -27,22 +27,22 @@ public class testDocument2 {
         // buat node Posting utk doc1
         for (int i = 0; i < tokenDoc1.length; i++) {
             // buat temp Posting
-            Posting tempPosting = new Posting(tokenDoc1[i],doc1);
+            Posting tempPosting = new Posting(tokenDoc1[i], doc1);
             // masukkan ke list
             list.add(tempPosting);
         }
         // buat node Posting utk doc2
         for (int i = 0; i < tokenDoc2.length; i++) {
             // buat temp Posting
-            Posting tempPosting = new Posting(tokenDoc2[i],doc2);
+            Posting tempPosting = new Posting(tokenDoc2[i], doc2);
             // masukkan ke list
             list.add(tempPosting);
         }
-        
+
         // panggil list posting
-        System.out.println("Ukuran list = "+list.size());
+        System.out.println("Ukuran list = " + list.size());
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getTerm()+","+list.get(i).getDocument().getId());
+            System.out.println(list.get(i).getTerm() + "," + list.get(i).getDocument().getId());
         }
     }
 }

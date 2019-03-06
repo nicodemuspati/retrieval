@@ -7,54 +7,56 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author admin
- */
-public class Term implements Comparable<Term>{
+public class Term implements Comparable<Term> {
+
     private String term;
-    private ArrayList<Posting> postingList = new ArrayList<Posting>();
+    private ArrayList<Posting> PostingList = new ArrayList<Posting>();
+    private PostingList TermList;
+
+    public Term() {
+        TermList = new PostingList();
+    }
+
+    public Term(String term, PostingList termList) {
+        this.term = term;
+        this.TermList = termList;
+    }
 
     public Term(String term) {
         this.term = term;
+        this.TermList = new PostingList();
     }
 
-    public int getNumberOfDocument(){
-        return postingList.size();
+    public ArrayList<Posting> getPostingList() {
+        return PostingList;
     }
-    /**
-     * @return the term
-     */
+
+    public void setPostingList(ArrayList<Posting> PostingList) {
+        this.PostingList = PostingList;
+    }
+
+    public int getNumberOfDocument() {
+        return PostingList.size();
+    }
+
     public String getTerm() {
         return term;
     }
 
-    /**
-     * @param term the term to set
-     */
     public void setTerm(String term) {
         this.term = term;
     }
 
-    /**
-     * @return the postingList
-     */
-    public ArrayList<Posting> getPostingList() {
-        return postingList;
+    public PostingList getTermList() {
+        return TermList;
     }
 
-    /**
-     * @param postingList the postingList to set
-     */
-    public void setPostingList(ArrayList<Posting> postingList) {
-        this.postingList = postingList;
+    public void setTermList(PostingList TermList) {
+        this.TermList = TermList;
     }
 
     @Override
     public int compareTo(Term o) {
         return term.compareToIgnoreCase(o.getTerm());
     }
-
-    
-    
 }

@@ -16,7 +16,7 @@ import model.Posting;
  */
 public class testDocument3 {
 
-    public static void main(String[] args) {
+      public static void main(String[] args) {
         // seting dokumen
         Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
@@ -45,3 +45,4 @@ public class testDocument3 {
         }
     }
 }
+

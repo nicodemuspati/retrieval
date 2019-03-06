@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.ArrayList;
@@ -13,22 +8,20 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 
-/**
- *
- * @author admin
- */
 public class InvertedIndex {
-    
+
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
     private ArrayList<Term> dictionary = new ArrayList<Term>();
-    
+
     public InvertedIndex() {
+        this.dictionary = new ArrayList<>();
+        this.listOfDocument = new ArrayList<>();
     }
-    
+
     public void addNewDocument(Document document) {
         getListOfDocument().add(document);
     }
-    
+
     public ArrayList<Posting> getUnsortedPostingList() {
         // cek untuk term yang muncul lebih dari 1 kali
         // siapkan posting List
@@ -48,7 +41,7 @@ public class InvertedIndex {
         }
         return list;
     }
-    
+
     public ArrayList<Posting> getUnsortedPostingListWithTermNumber() {
         // cek untuk term yang muncul lebih dari 1 kali
         // siapkan posting List
@@ -57,7 +50,7 @@ public class InvertedIndex {
         for (int i = 0; i < getListOfDocument().size(); i++) {
             // buat listOfTerm dari document ke -i
             //String[] termResult = getListOfDocument().get(i).getListofTerm();
-            ArrayList<Posting> postingDocument = getListOfDocument().get(i).getListofPosting();
+            ArrayList<Posting> postingDocument = getListOfDocument().get(i).getListOfPosting();
             // loop sebanyak term dari document ke i
             for (int j = 0; j < postingDocument.size(); j++) {
                 // ambil objek posting
@@ -68,7 +61,7 @@ public class InvertedIndex {
         }
         return list;
     }
-    
+
     public ArrayList<Posting> getSortedPostingList() {
         // siapkan posting List
         ArrayList<Posting> list = new ArrayList<Posting>();
@@ -78,7 +71,7 @@ public class InvertedIndex {
         Collections.sort(list);
         return list;
     }
-    
+
     public ArrayList<Posting> getSortedPostingListWithTermNumber() {
         // siapkan posting List
         ArrayList<Posting> list = new ArrayList<Posting>();
@@ -89,13 +82,7 @@ public class InvertedIndex {
         return list;
     }
 
-    /**
-     * Fungsi cari dokumen
-     *
-     * @param query
-     * @return
-     */
-    public ArrayList<Posting> search(String query) {
+    public ArrayList<Posting> Search(String query) {
         // buat index/dictionary
 //        makeDictionary();
         String tempQuery[] = query.split(" ");
@@ -103,35 +90,28 @@ public class InvertedIndex {
         for (int i = 0; i < tempQuery.length; i++) {
             String string = tempQuery[i];
             if (i == 0) {
-                result = searchOneWord(string);
+                result = SearchOneWord(string);
             } else {
-                ArrayList<Posting> result1 = searchOneWord(string);
-                result = intersection(result, result1);
+                ArrayList<Posting> result1 = SearchOneWord(string);
+                result = Intersection(result, result1);
             }
         }
         return result;
     }
 
-    /**
-     * Fungsi untuk menggabungkan 2 buah posting Made by Johan
-     *
-     * @param p1
-     * @param p2
-     * @return
-     */
-    public ArrayList<Posting> intersection(ArrayList<Posting> p1,
+    public ArrayList<Posting> Intersection(ArrayList<Posting> p1,
             ArrayList<Posting> p2) {
         if (p1 == null || p2 == null) {
             return new ArrayList<>();
         }
-        
+
         ArrayList<Posting> postings = new ArrayList<>();
         int p1Index = 0;
         int p2Index = 0;
-        
+
         Posting post1 = p1.get(p1Index);
         Posting post2 = p2.get(p2Index);
-        
+
         while (true) {
             if (post1.getDocument().getId() == post2.getDocument().getId()) {
                 try {
@@ -143,7 +123,7 @@ public class InvertedIndex {
                 } catch (Exception e) {
                     break;
                 }
-                
+
             } else if (post1.getDocument().getId() < post2.getDocument().getId()) {
                 try {
                     p1Index++;
@@ -151,7 +131,7 @@ public class InvertedIndex {
                 } catch (Exception e) {
                     break;
                 }
-                
+
             } else {
                 try {
                     p2Index++;
@@ -163,8 +143,8 @@ public class InvertedIndex {
         }
         return postings;
     }
-    
-    public ArrayList<Posting> searchOneWord(String word) {
+
+    public ArrayList<Posting> SearchOneWord(String word) {
         Term tempTerm = new Term(word);
         if (getDictionary().isEmpty()) {
             // dictionary kosong
@@ -179,8 +159,8 @@ public class InvertedIndex {
             }
         }
     }
-    
-    public void makeDictionary() {
+
+    public void MakeDictionary() {
         // cek deteksi ada term yang frekuensinya lebih dari 
         // 1 pada sebuah dokumen
         // buat posting list term terurut
@@ -219,11 +199,11 @@ public class InvertedIndex {
                 // urutkan term dictionary
                 Collections.sort(getDictionary());
             }
-            
+
         }
-        
+
     }
-    
+
     public void makeDictionaryWithTermNumber() {
         // cek deteksi ada term yang frekuensinya lebih dari 
         // 1 pada sebuah dokumen
@@ -263,44 +243,27 @@ public class InvertedIndex {
                 // urutkan term dictionary
                 Collections.sort(getDictionary());
             }
+
         }
-        
+
     }
 
-    /**
-     * @return the listOfDocument
-     */
     public ArrayList<Document> getListOfDocument() {
         return listOfDocument;
     }
 
-    /**
-     * @param listOfDocument the listOfDocument to set
-     */
     public void setListOfDocument(ArrayList<Document> listOfDocument) {
         this.listOfDocument = listOfDocument;
     }
 
-    /**
-     * @return the dictionary
-     */
     public ArrayList<Term> getDictionary() {
         return dictionary;
     }
 
-    /**
-     * @param dictionary the dictionary to set
-     */
     public void setDictionary(ArrayList<Term> dictionary) {
         this.dictionary = dictionary;
     }
 
-    /**
-     * Fungsi mencari frequensi sebuah term dalam sebuah index
-     *
-     * @param term
-     * @return
-     */
     public int getDocumentFrequency(String term) {
         Term tempTerm = new Term(term);
         // cek apakah term ada di dictionary
@@ -318,12 +281,6 @@ public class InvertedIndex {
         }
     }
 
-    /**
-     * Fungsi untuk mencari inverse term dari sebuah index
-     *
-     * @param term
-     * @return
-     */
     public double getInverseDocumentFrequency(String term) {
         Term tempTerm = new Term(term);
         // cek apakah term ada di dictionary
@@ -335,7 +292,8 @@ public class InvertedIndex {
             // jumlah dokumen dengan term i
             int ni = getDocumentFrequency(term);
             // idf = log10(N/ni)
-            return Math.log10(N / ni);
+            double Nni = (double) N / ni;
+            return Math.log10(Nni);
         } else {
             // term tidak ada
             // nilai idf = 0
@@ -343,19 +301,13 @@ public class InvertedIndex {
         }
     }
 
-    /**
-     * Fungsi untuk mencari term frequency
-     *
-     * @param term
-     * @param idDocument
-     * @return
-     */
-    public int getTermFrequency(String term, int idDocument) {
-        Document document = new Document();
-        document.setId(idDocument);
-        int pos = Collections.binarySearch(listOfDocument, document);
-        if (pos >= 0) {
-            ArrayList<Posting> tempPosting = listOfDocument.get(pos).getListofPosting();
+    public int getTermFrequency(String term, int idDoc) {
+        Document doc = new Document();
+        doc.setId(idDoc);
+
+        int Posting = Collections.binarySearch(listOfDocument, doc);
+        if (Posting >= 0) {
+            ArrayList<Posting> tempPosting = listOfDocument.get(Posting).getListOfPosting();
             Posting posting = new Posting();
             posting.setTerm(term);
             int postingIndex = Collections.binarySearch(tempPosting, posting);
@@ -364,29 +316,37 @@ public class InvertedIndex {
             }
             return 0;
         }
-        
+
         return 0;
     }
 
-    /**
-     * Fungsi untuk menghitung TF-IDF dari sebuah dokumen
-     *
-     * @param idDocument
-     */
-    public ArrayList<Posting> makeTFIDF(int idDocument) {
-         ArrayList<Term> terms = getDictionary();
-        
-        ArrayList<Posting> result = new ArrayList<>();
-        for (int i = 0; i < terms.size(); i++) {
-            double weight = getTermFrequency(terms.get(i).getTerm(), idDocument) * getInverseDocumentFrequency(terms.get(i).getTerm());
-            
-            Posting tempPosting = new Posting();
-            tempPosting.setTerm(terms.get(i).getTerm());
-            tempPosting.setWeight(weight);
-            
-            result.add(tempPosting);
+    public ArrayList<Posting> MakeTFIDF(int idDoc) {
+        Document doc = new Document();
+        doc.setId(idDoc);
+
+        int check = Collections.binarySearch(listOfDocument, doc);
+        if (check < 0) {
+            return null;
+
+        } else {
+            doc = listOfDocument.get(check);
+            ArrayList<Posting> result = doc.getListOfPosting();
+            for (int i = 0; i < result.size(); i++) {
+                Posting temp = result.get(i);
+                double idf = getInverseDocumentFrequency(temp.getTerm());
+                int tf = temp.getNumberOfTerm();
+                double weight = tf * idf;
+                result.get(i).setWeight(weight);
+            }
+            return result;
         }
-        
-        return result;
+    }
+
+    public Double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
+        return 0.0;
+    }
+
+    public ArrayList<Posting> getQueryPosting(String query) {
+        return null;
     }
 }

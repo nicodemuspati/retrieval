@@ -12,7 +12,7 @@ import model.Document;
  * @author admin
  */
 public class testDocument1 {
-    public static void main(String[] args) {
+      public static void main(String[] args) {
         Document doc1 = new Document(1, "computer information retrieval.");
         Document doc2 = new Document(2, "computer organization and architecture");
         String result[] = doc1.getListofTerm();
