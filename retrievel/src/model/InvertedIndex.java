@@ -10,6 +10,7 @@ import java.util.function.Consumer;
 
 public class InvertedIndex {
 
+   
     private ArrayList<Document> listOfDocument = new ArrayList<Document>();
     private ArrayList<Term> dictionary = new ArrayList<Term>();
 
@@ -105,7 +106,7 @@ public class InvertedIndex {
             return new ArrayList<>();
         }
 
-        ArrayList<Posting> postings = new ArrayList<>();
+        ArrayList<Posting> posting = new ArrayList<>();
         int p1Index = 0;
         int p2Index = 0;
 
@@ -115,7 +116,7 @@ public class InvertedIndex {
         while (true) {
             if (post1.getDocument().getId() == post2.getDocument().getId()) {
                 try {
-                    postings.add(post1);
+                    posting.add(post1);
                     p1Index++;
                     p2Index++;
                     post1 = p1.get(p1Index);
@@ -141,7 +142,7 @@ public class InvertedIndex {
                 }
             }
         }
-        return postings;
+        return posting;
     }
 
     public ArrayList<Posting> SearchOneWord(String word) {
@@ -343,10 +344,28 @@ public class InvertedIndex {
     }
 
     public Double getInnerProduct(ArrayList<Posting> p1, ArrayList<Posting> p2) {
-        return 0.0;
+        double result = 0;
+        for (int i = 0; i < p1.size(); i++) {
+            int Posting = Collections.binarySearch(p2, p1.get(i));
+            if (Posting >= 0) {
+                result = result + (p1.get(i).getWeight()* p2.get(Posting).getWeight());
+            }
+        }
+        return result;
     }
 
     public ArrayList<Posting> getQueryPosting(String query) {
-        return null;
+        Document doc = new Document();
+        doc.setContent(query);
+
+        ArrayList<Posting> result = doc.getListOfPosting();
+        for (int i = 0; i < result.size(); i++) {
+            // weight = tf * idf
+            double weight = result.get(i).getNumberOfTerm() * getInverseDocumentFrequency(result.get(i).getTerm());
+
+            result.get(i).setWeight(weight);
+        }
+
+        return result;
     }
 }
