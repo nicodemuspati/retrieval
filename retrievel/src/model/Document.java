@@ -10,6 +10,10 @@ import java.util.StringTokenizer;
  */
 public class Document implements Comparable<Document> {
 
+    public Document(int id) {
+        this.id = id;
+    }
+
     private int id;
     private String content;
 
