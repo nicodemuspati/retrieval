@@ -14,14 +14,14 @@ public class testTFUDF8 {
         Document doc2 = new Document(2, "delivery of silver arrived in a silver truck");
         Document doc3 = new Document(3, "shipment of gold arrived in a truck");
 
-        // buat object invertedIndex
+        // membuat object invertedIndex
         InvertedIndex index = new InvertedIndex();
         // tmbahkan document ke index
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
 
-        // panggil fungsi search
+        // mamanggil fungsi search
         index.makeDictionaryWithTermNumber();
         ArrayList<Term> result = index.getDictionary();
         // tampilkan isi document dan id-nya
@@ -45,8 +45,7 @@ public class testTFUDF8 {
         double result3 = index.getInverseDocumentFrequency(tempString1);
         System.out.println("IDF of " + tempString1 + " is " + result3);
 
-        // tf
-        // idf
+        // tf dan  idf
         String tempString2 = "truck";
         int idDoc = 2;
         int result4 = index.getTermFrequency(tempString2, idDoc);
@@ -70,7 +69,7 @@ public class testTFUDF8 {
                     + ", tf = " + tempPost.getNumberOfTerm()
                     + ", weight= " + tempPost.getWeight());
         }
-        // panggil fungsi inner product
+        // memanggil fungsi inner product
        
         double resultProduct = index.getInnerProduct(temp1DocWeight, tempDocWeight);
         System.out.println("Hasil Inner Product doc1 dan doc2 = " + resultProduct);
@@ -83,10 +82,10 @@ public class testTFUDF8 {
                     + ", tf = " + tempPost.getNumberOfTerm()
                     + ", weight= " + tempPost.getWeight());
         }
-        // panggil fungsi inner product
+        // memanggil fungsi inner product
       
         double result1Product = index.getInnerProduct(queryPostingList, tempDocWeight);
-        System.out.println("Hasil Inner Product Query dan doc1= " + result1Product);
+        System.out.println("Hasil  dari Inner Product Query dan doc1= " + result1Product);
         
 
     }
