@@ -16,7 +16,7 @@ public class testSearching1 {
 
         // buat object invertedIndex
         InvertedIndex index = new InvertedIndex();
-        // tmbahkan document ke index
+        // menambahkan document ke index
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);

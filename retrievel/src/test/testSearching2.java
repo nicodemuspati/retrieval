@@ -12,9 +12,9 @@ public class testSearching2 {
         Document doc2 = new Document(2, "delivery of silver arrived in a silver truck");
         Document doc3 = new Document(3, "shipment of gold arrived in a truck");
 
-        // buat object invertedIndex
+        // membuat object invertedIndex
         InvertedIndex index = new InvertedIndex();
-        // tmbahkan document ke index
+        // untuk menambahkan document ke index
         index.addNewDocument(doc1);
         index.addNewDocument(doc2);
         index.addNewDocument(doc3);
